@@ -4,9 +4,11 @@
 
 module.exports = {
   siteMetadata: {
-    title: `Pathway Assessments`,
+    siteTitle: `Pathway Assessments`,
     siteUrl: `https://pathway-church-assessments.netlify.app`,
     churchName: `Pathway Community Church`,
+    churchShortName: `Pathway`,
+    churchEmail: `pathwaymarietta@gmail.com`,
   },
   plugins: [
     'gatsby-plugin-postcss',

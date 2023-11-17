@@ -9,7 +9,7 @@ const ContentWrapper = ({ type, children, view }) => {
           : 'Spritual Gifts Assessment'}
       </h1>
       {view === 'assessing' && (
-        <p className='text-sm sm:text-base mt-3 sm:mt-6 text-slate-600'>
+        <p className='text-sm sm:text-base mt-3 sm:mt-6 text-primary-600'>
           Please choose the option that is <em>most</em> true of you.
         </p>
       )}

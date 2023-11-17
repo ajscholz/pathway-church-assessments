@@ -1,25 +1,39 @@
 import React, { useState, useRef } from 'react'
+import { useStaticQuery, graphql } from 'gatsby'
 import PropTypes from 'prop-types'
 import Button from './Button'
 import Alert from './Alert'
 
 const SubmitResults = ({ dispatch, type, results, testing }) => {
   const [state, setState] = useState({
-    part: testing ? false : true,
+    part: true,
     emailMe: true,
-    name: testing ? `Andrew Scholz` : ``,
-    email: testing ? `andrew@citynorth.church` : ``,
+    name: testing ? `Michael G. Scott` : ``,
+    email: testing ? `mgscott@dundermifflin.com` : ``,
   })
 
-  const { part, emailMe, name, email } = state
+  const data = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          churchName
+          churchEmail
+        }
+      }
+    }
+  `)
+
   const [submitting, setSubmitting] = useState(false)
   const [serverResponse, setServerResponse] = useState({
-    cn: null,
+    org: null,
     person: null,
   })
 
   // only using a ref because basing the display off state on the server response was buggy
-  const serverRef = useRef({ cn: null, person: null })
+  const serverRef = useRef({ org: null, person: null })
+
+  const { part, emailMe, name, email } = state
+  const { churchName, churchEmail } = data.site.siteMetadata
 
   const submitForm = async (data) => {
     return await window.fetch(`../api/submitAssessment`, {
@@ -39,17 +53,19 @@ const SubmitResults = ({ dispatch, type, results, testing }) => {
       const partResponse = await submitForm({
         name: name,
         email: email,
-        to: 'cn assessments',
+        churchName: churchName,
+        churchEmail: churchEmail,
+        to: 'org assessments',
         type: type,
         results: results,
         testing: testing,
       })
       if (emailMe !== true) {
       }
-      serverRef.current.cn = partResponse.status === 200
+      serverRef.current.org = partResponse.status === 200
       setServerResponse({
         ...serverResponse,
-        cn: partResponse.status === 200,
+        org: partResponse.status === 200,
       })
     }
 
@@ -57,6 +73,8 @@ const SubmitResults = ({ dispatch, type, results, testing }) => {
       const personResponse = await submitForm({
         name: name,
         email: email,
+        churchName: churchName,
+        churchEmail: churchEmail,
         to: 'person',
         type: type,
         results: results,
@@ -80,10 +98,10 @@ const SubmitResults = ({ dispatch, type, results, testing }) => {
             </h2>
             <div className='mt-8 w-full sm:w-4/5 md:w-3/4 lg:w-2/3 mx-auto space-y-4'>
               {part && (
-                <Alert status={serverRef.current.cn}>
-                  <p>Sent to City North</p>
-                  <p>Error sending to City North</p>
-                  <p>Sending to City North</p>
+                <Alert status={serverRef.current.org}>
+                  <p>Sent to {churchName}</p>
+                  <p>Error sending to {churchName}</p>
+                  <p>Sending to {churchName}</p>
                 </Alert>
               )}
 
@@ -112,13 +130,13 @@ const SubmitResults = ({ dispatch, type, results, testing }) => {
                 <div className='space-y-10 divide-y divide-gray-200 sm:space-y-10'>
                   {/* 
                 
-                part of CN?
+                part of the church?
 
                 */}
                   <div className='space-y-3'>
                     <div className='text-left'>
                       <h3 className='text-lg font-medium leading-6 text-gray-900'>
-                        Are you part of City North?
+                        Are you part of {churchName}?
                       </h3>
                       <p className='mt-1 max-w-2xl text-sm text-gray-500'>
                         If so we'll send your results to our team as well.
@@ -142,7 +160,7 @@ const SubmitResults = ({ dispatch, type, results, testing }) => {
                                       onClick={() =>
                                         setState({ ...state, part: true })
                                       }
-                                      className='h-4 w-4 border-gray-300 text-slate-600 focus:ring-slate-500'
+                                      className='h-4 w-4 border-gray-300 text-primary-600 focus:ring-primary-500'
                                     />
                                     <label
                                       htmlFor='push-everything'
@@ -160,7 +178,7 @@ const SubmitResults = ({ dispatch, type, results, testing }) => {
                                       onClick={() =>
                                         setState({ ...state, part: false })
                                       }
-                                      className='h-4 w-4 border-gray-300 text-slate-600 focus:ring-slate-500'
+                                      className='h-4 w-4 border-gray-300 text-primary-600 focus:ring-primary-500'
                                     />
                                     <label
                                       htmlFor='push-email'
@@ -211,7 +229,7 @@ const SubmitResults = ({ dispatch, type, results, testing }) => {
                                       onClick={() =>
                                         setState({ ...state, emailMe: true })
                                       }
-                                      className='h-4 w-4 border-gray-300 text-slate-600 focus:ring-slate-500'
+                                      className='h-4 w-4 border-gray-300 text-primary-600 focus:ring-primary-500'
                                     />
                                     <label
                                       htmlFor='send-yes'
@@ -228,7 +246,7 @@ const SubmitResults = ({ dispatch, type, results, testing }) => {
                                       onClick={() =>
                                         setState({ ...state, emailMe: false })
                                       }
-                                      className='h-4 w-4 border-gray-300 text-slate-600 focus:ring-slate-500'
+                                      className='h-4 w-4 border-gray-300 text-primary-600 focus:ring-primary-500'
                                     />
                                     <label
                                       htmlFor='send-no'
@@ -270,7 +288,7 @@ const SubmitResults = ({ dispatch, type, results, testing }) => {
                             onChange={(e) => {
                               setState({ ...state, name: e.target.value })
                             }}
-                            className='block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-slate-500 focus:ring-slate-500 sm:max-w-xs sm:text-sm'
+                            className='block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:max-w-xs sm:text-sm'
                           />
                         </div>
                       </div>
@@ -297,7 +315,7 @@ const SubmitResults = ({ dispatch, type, results, testing }) => {
                               setState({ ...state, email: e.target.value })
                             }}
                             value={email}
-                            className='block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-slate-500 focus:ring-slate-500 sm:text-sm'
+                            className='block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm'
                           />
                         </div>
                       </div>
@@ -320,7 +338,7 @@ const SubmitResults = ({ dispatch, type, results, testing }) => {
                         (part === true && (name === '' || email === '')) ||
                         (emailMe === true && (name === '' || email === ''))
                       }
-                      // className='ml-3 inline-flex justify-center rounded-md border border-transparent bg-slate-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2'
+                      // className='ml-3 inline-flex justify-center rounded-md border border-transparent bg-primary-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2'
                     >
                       Send Results
                     </Button>

@@ -22,13 +22,13 @@ const Button = React.forwardRef((props, ref) => {
       setClassnames('bg-yellow-600 border-yellow-600 text-yellow-50')
       break
     case 'dark':
-      setClassnames('bg-slate-700 border-slate-700 text-slate-50')
+      setClassnames('bg-primary-700 border-primary-700 text-primary-50')
       break
     case 'clear':
-      setClassnames('border border-slate-900 text-slate-900 ')
+      setClassnames('border border-primary-900 text-primary-900 ')
       break
     default:
-      setClassnames('bg-slate-300 border-slate-300 text-slate-900')
+      setClassnames('bg-primary-300 border-primary-300 text-primary-900')
       break
   }
   return (

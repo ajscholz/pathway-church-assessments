@@ -32,10 +32,10 @@ const RadioButtons = ({ currentSelection, focusNext, testing }) => {
               }}
               className={({ active, checked }) =>
                 classNames(
-                  active ? 'ring-2 ring-offset-2 ring-slate-500' : '',
+                  active ? 'ring-2 ring-offset-2 ring-primary-500' : '',
                   checked || currentSelection.current === i
-                    ? 'bg-slate-600 border-transparent text-white hover:bg-slate-700'
-                    : 'bg-white border-slate-200 text-slate-900 hover:bg-slate-50',
+                    ? 'bg-primary-600 border-transparent text-white hover:bg-primary-700'
+                    : 'bg-white border-primary-200 text-primary-900 hover:bg-primary-50',
                   'border rounded-md py-3 px-3 flex items-center justify-center text-sm font-medium capitalize sm:flex-1 cursor-pointer'
                 )
               }

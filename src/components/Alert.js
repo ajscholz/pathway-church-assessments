@@ -15,7 +15,7 @@ const Alert = ({ status, children }) => {
             ? 'bg-green-100'
             : status === false
             ? 'bg-red-100'
-            : 'bg-slate-100'
+            : 'bg-primary-100'
         }`}
       >
         <div className='flex justify-center'>
@@ -27,7 +27,7 @@ const Alert = ({ status, children }) => {
               leave='transition-opacity duration-300'
               leaveFrom='opacity-100'
               leaveTo='opacity-0'
-              className='absolute inset-0 animate-spin h-5 w-5 text-slate-400'
+              className='absolute inset-0 animate-spin h-5 w-5 text-primary-400'
               aria-hidden='true'
             />
             <Transition
@@ -56,7 +56,7 @@ const Alert = ({ status, children }) => {
                   ? 'text-green-800'
                   : status === false
                   ? 'text-red-800'
-                  : 'text-slate-800'
+                  : 'text-primary-800'
               }`}
             >
               {status === true
@@ -75,31 +75,31 @@ const Alert = ({ status, children }) => {
                     ? 'bg-green-100'
                     : status === false
                     ? 'bg-red-100'
-                    : 'bg-slate-100'
+                    : 'bg-primary-100'
                 } ${
                   status === true
                     ? 'text-green-500'
                     : status === false
                     ? 'text-red-500'
-                    : 'text-slate-500'
+                    : 'text-primary-500'
                 } ${
                   status === true
                     ? 'hover:bg-green-200'
                     : status === false
                     ? 'hover:bg-red-200'
-                    : 'hover:bg-slate-200'
+                    : 'hover:bg-primary-200'
                 } focus:outline-none focus:ring-2 ${
                   status === true
                     ? 'focus:ring-green-600'
                     : status === false
                     ? 'focus:ring-red-600'
-                    : 'focus:ring-slate-600'
+                    : 'focus:ring-primary-600'
                 } focus:ring-offset-2 ${
                   status === true
                     ? 'focus:ring-offset-green-100'
                     : status === false
                     ? 'focus:ring-offset-red-100'
-                    : 'focus:ring-offset-slate-100'
+                    : 'focus:ring-offset-primary-100'
                 }`}
               >
                 <span className='sr-only'>Dismiss</span>

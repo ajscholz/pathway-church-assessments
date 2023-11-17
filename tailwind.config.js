@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     colors: {
       ...colors,
-      slate: {
+      primary: {
         50: '#f5f9fa',
         100: '#eaf2f5',
         200: '#cbe0e7',

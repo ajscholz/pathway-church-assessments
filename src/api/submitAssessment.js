@@ -5,7 +5,8 @@ const { google } = require('googleapis')
 
 export default async function formHandler(req, res) {
   // req.body has the form values
-  const { name, email, to, type, results, testing } = req.body
+  const { name, email, churchName, churchEmail, to, type, results, testing } =
+    req.body
 
   // Set some variables for use later
 
@@ -49,11 +50,11 @@ export default async function formHandler(req, res) {
   */
   const transporter = testing
     ? nodemailer.createTransport({
-        host: 'smtp.mailtrap.io',
+        host: 'sandbox.smtp.mailtrap.io',
         port: 2525,
         auth: {
-          user: '4f462e963177c0',
-          pass: '7a2d710afb0cb4',
+          user: 'a949c930869b32',
+          pass: '00f4db531864a8',
         },
       })
     : nodemailer.createTransport({
@@ -152,7 +153,7 @@ export default async function formHandler(req, res) {
 
   */
   const html =
-    to === 'cn assessments'
+    to === 'org assessments'
       ? `
     <html>
       <style>
@@ -200,7 +201,7 @@ export default async function formHandler(req, res) {
         ${formattedResults}
       <br>
       <hr>
-      <p>Please <a href="mailto: nextsteps@citynorth.church">contact City North</a> with any questions about your results.</p>
+      <p>Please contact <a href="mailto: ${churchEmail}">${churchName}</a> with any questions about your results.</p>
       </html>`
 
   /*
@@ -208,30 +209,31 @@ export default async function formHandler(req, res) {
       Set up the message body sent in the email
 
   */
-  const message = {
-    from: {
-      name: 'City North Assessments',
-      address:
-        to === 'cn assessments'
-          ? 'andrew@citynorth.church'
-          : 'nextsteps@citynorth.church',
-    },
-    replyTo:
-      to === 'cn assessments'
-        ? `Andrew Scholz <andrew@citynorth.church>`
-        : `City North Church <nextsteps@citynorth.church>`,
-    to:
-      to === 'cn assessments'
-        ? `City North Church <nextsteps@citynorth.church>`
-        : `${name} <${email}>`,
-    bcc: to === 'cn assessments' && `Andrew Scholz <andrew@citynorth.church>`,
-    subject:
-      to === 'cn assessments'
-        ? `New ${type} Assessment Submission`
-        : `Your ${type} Assessment Results From City North Assessments`,
-    generateTextFromHTML: true,
-    html: html,
-  }
+  const message =
+    to === 'org assessments'
+      ? {
+          from: {
+            name: 'Andrew Scholz',
+            address: 'andrew@citynorth.church',
+          },
+          replyTo: `${name} <${email}>`,
+          to: `${churchName} <${churchEmail}>`,
+          bcc: `Andrew Scholz <andrew@citynorth.church>`,
+          subject: `New ${type} Assessment Submission`,
+          generateTextFromHTML: true,
+          html: html,
+        }
+      : {
+          from: {
+            name: churchName,
+            address: churchEmail,
+          },
+          replyTo: `${churchName} <${churchEmail}>`,
+          to: `${name} <${email}>`,
+          subject: `Your ${type} Assessment Results From ${churchName}`,
+          generateTextFromHTML: true,
+          html: html,
+        }
 
   /*
 

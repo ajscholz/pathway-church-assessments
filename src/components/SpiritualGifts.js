@@ -482,7 +482,7 @@ const SpiritualGifts = () => {
           <>
             <PresentationWrapper>
               <SpiritualGiftsResults display={tally.current} />
-              {/* <p className='text-slate-500 mb-2 italic'>
+              {/* <p className='text-primary-500 mb-2 italic'>
                 ** Click any of the gifts to view resources **
               </p> */}
             </PresentationWrapper>

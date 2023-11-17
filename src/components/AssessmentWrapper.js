@@ -16,14 +16,14 @@ const AssessmentWrapper = ({
     <>
       <div>
         <div>
-          <p className='text-lg sm:text-xl text-slate-700'>
+          <p className='text-lg sm:text-xl text-primary-700'>
             {question.question}
           </p>
         </div>
         <div className='mt-6 flex flex-col items-center'>{children}</div>
       </div>
       <footer className='border border-t-2 border-l-0 border-r-0 border-b-0 mt-12 p-4 flex items-center justify-content-between text-center'>
-        <p className='text-xs sm:text-sm mr-auto text-slate-500'>
+        <p className='text-xs sm:text-sm mr-auto text-primary-500'>
           {activeQ} of {length}
         </p>
         <Button

@@ -1,15 +1,28 @@
 import React from 'react'
+import { useStaticQuery, graphql } from 'gatsby'
 import { Link } from 'gatsby-link'
 import { Popover, Transition } from '@headlessui/react'
 import FocusTrap from 'focus-trap-react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 const Layout = ({ children }) => {
+  const data = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          siteTitle
+        }
+      }
+    }
+  `)
+
+  const { siteTitle } = data.site.siteMetadata
+
   return (
-    <FocusTrap className='bg-slate-50 min-h-screen'>
+    <FocusTrap active={false} className='bg-primary-50 min-h-screen'>
       <div>
         <header>
-          <CustomPopover />
+          <CustomPopover siteTitle={siteTitle} />
         </header>
         <div className='px-6 sm:px-10 md:px-12 mt-12 w-full'>{children}</div>
       </div>
@@ -19,9 +32,9 @@ const Layout = ({ children }) => {
 
 export default Layout
 
-const CustomPopover = () => {
+const CustomPopover = ({ siteTitle }) => {
   return (
-    <Popover className='relative bg-slate-700 text-slate-50'>
+    <Popover className='relative bg-primary-700 text-primary-50'>
       <div
         className='pointer-events-none absolute inset-0 z-30 shadow'
         aria-hidden='true'
@@ -30,11 +43,11 @@ const CustomPopover = () => {
         <div className='mx-auto flex max-w-7xl items-center justify-between px-4 py-5 sm:px-8 sm:py-12 lg:px-8'>
           <div className='md:mr-auto'>
             <h1 className='text-xl md:text-4xl font-bold hover:text-gray-400'>
-              <Link to='/'>City North Assessments</Link>
+              <Link to='/'>{siteTitle}</Link>
             </h1>
           </div>
           <div className='-my-2 -mr-2 md:hidden'>
-            <Popover.Button className='inline-flex items-center justify-center rounded-md bg-gray-50 p-2 text-gray-700 hover:bg-gray-100 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-slate-500'>
+            <Popover.Button className='inline-flex items-center justify-center rounded-md bg-gray-50 p-2 text-gray-700 hover:bg-gray-100 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500'>
               <span className='sr-only'>Open menu</span>
               <Bars3Icon className='h-6 w-6' aria-hidden='true' />
             </Popover.Button>
@@ -75,7 +88,7 @@ const CustomPopover = () => {
             <div className='px-5 pt-5 pb-6 sm:pb-8'>
               <div className='flex items-center justify-end'>
                 <div className='-mr-2'>
-                  <Popover.Button className='inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-slate-500'>
+                  <Popover.Button className='inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500'>
                     <span className='sr-only'>Close menu</span>
                     <XMarkIcon className='h-6 w-6' aria-hidden='true' />
                   </Popover.Button>

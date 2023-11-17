@@ -52,7 +52,9 @@ const MBTIResults = ({ results }) => {
                 <div
                   key={letter}
                   className={`mb-0 mt-0 text-xl ${i === 0 ? 'mr-2' : 'ml-2'} ${
-                    pair.winIndex !== i ? 'text-slate-500' : 'text-slate-900'
+                    pair.winIndex !== i
+                      ? 'text-primary-500'
+                      : 'text-primary-900'
                   }`}
                 >
                   {letter}
@@ -70,14 +72,14 @@ const MBTIResults = ({ results }) => {
               ))}
               <div className='absolute top-0 bottom-0 left-6 right-6'>
                 <div
-                  className={`absolute top-0 bottom-0 bg-slate-700 flex ${
+                  className={`absolute top-0 bottom-0 bg-primary-700 flex ${
                     pair.winIndex === 0
                       ? `left-0 justify-end`
                       : `right-0 justify-start`
                   } items-center rounded-sm`}
                   style={{ width: `${pair.scores[pair.winIndex]}%` }}
                 >
-                  <span className='mx-2 text-slate-50 text-sm'>
+                  <span className='mx-2 text-primary-50 text-sm'>
                     {`${pair.scores[pair.winIndex]}%`}
                   </span>
                 </div>
