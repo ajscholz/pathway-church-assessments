@@ -1,0 +1,37 @@
+{
+  "name": "city-north-assessments",
+  "version": "1.0.0",
+  "private": true,
+  "description": "city-north-assessments",
+  "author": "ajscholz",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.7.17",
+    "@heroicons/react": "^2.0.18",
+    "@tailwindcss/forms": "^0.5.6",
+    "classnames": "^2.3.2",
+    "focus-trap-react": "^10.2.3",
+    "gatsby": "^5.12.4",
+    "gatsby-adapter-netlify": "^1.0.3",
+    "gatsby-plugin-layout": "^4.12.0",
+    "gatsby-plugin-sitemap": "^6.12.3",
+    "googleapis": "^128.0.0",
+    "nodemailer": "^6.9.7",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "gatsby-plugin-postcss": "^6.12.0",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.5"
+  }
+}
